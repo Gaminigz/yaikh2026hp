@@ -2226,15 +2226,17 @@ function PricingTease() {
   ];
 
   return (
-    <Section id="pricing" className="bg-gradient-to-b from-white to-yai-bg">
+    <Section id="pricing" className="bg-gradient-to-b from-white to-yai-bg !pt-4 lg:!pt-6">
       <SectionEyebrow>Pricing</SectionEyebrow>
-      <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance max-w-3xl">
-        Every great march starts with one step.
-      </h2>
-      <p className="text-lg text-gray-600 mt-4 max-w-2xl leading-relaxed">
-        $120 a year buys five key members a digital admin core. From there, the ladder climbs all the way to a
-        sovereign-Ai data centre on your own factory roof.
-      </p>
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
+        <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance">
+          Every great march starts with one step.
+        </h2>
+        <p className="text-base text-gray-600 leading-relaxed">
+          $120 a year buys five key members a digital admin core. From there, the ladder climbs
+          all the way to a sovereign-Ai data centre on your own factory roof.
+        </p>
+      </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
         {tiers.map((t, i) => (
           <Reveal key={t.step} delay={i * 0.08}>
