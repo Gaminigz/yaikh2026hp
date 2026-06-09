@@ -1649,7 +1649,7 @@ function CustomersStrip() {
       </div>
 
       <div className="overflow-x-auto pb-4 mt-10">
-        <div className="flex items-end gap-2 min-w-max md:min-w-0">
+        <div className="flex items-end gap-4 lg:gap-5 min-w-max md:min-w-0 px-1">
           {STEPS.map((s) => (
             <FlatStepColumn key={`${s.step}-${s.name}`} s={s} />
           ))}
@@ -1718,7 +1718,7 @@ function FlatStepColumn({
 }) {
   return (
     <div
-      className={`flex flex-col shrink-0 w-[112px] rounded-2xl border border-yai-border bg-gradient-to-b ${s.grad} items-center p-3 text-center`}
+      className={`flex flex-col shrink-0 w-[124px] rounded-2xl border border-yai-border bg-gradient-to-b ${s.grad} items-center px-3.5 py-4 text-center`}
       style={{ height: s.h }}
     >
       <div className="text-[9px] font-bold uppercase tracking-widest text-gray-500">
