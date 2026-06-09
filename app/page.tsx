@@ -1648,11 +1648,16 @@ function CustomersStrip() {
         </p>
       </div>
 
-      <div className="overflow-x-auto pb-4 mt-10">
-        <div className="flex items-end gap-4 min-w-max md:min-w-0 px-1">
-          {STEPS.map((s) => (
-            <FlatStepColumn key={`${s.step}-${s.name}`} s={s} />
-          ))}
+      {/* Wrapper structure kept IDENTICAL to the PricingStaircase wrapper
+          (-mx-1 px-1 + min-w-max) so the two ladders' pillars line up
+          100% column-for-column. */}
+      <div className="overflow-x-auto pb-4 mt-10 -mx-1 px-1">
+        <div className="min-w-max">
+          <div className="flex items-end gap-4">
+            {STEPS.map((s) => (
+              <FlatStepColumn key={`${s.step}-${s.name}`} s={s} />
+            ))}
+          </div>
         </div>
       </div>
       <p className="text-xs text-gray-500 italic mt-4 max-w-3xl">
