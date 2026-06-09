@@ -1631,7 +1631,7 @@ function CustomersStrip() {
   ];
 
   return (
-    <Section id="customers" className="bg-yai-bg">
+    <Section id="customers" className="bg-yai-bg !pt-4 lg:!pt-6">
       <SectionEyebrow>The journey</SectionEyebrow>
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
         <div>
