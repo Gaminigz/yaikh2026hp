@@ -2150,11 +2150,11 @@ function PartnerStack() {
       cta: "Read the technical brief",
     },
     {
-      name: "Google Cloud Partner",
+      name: "Google Ai Services",
       tag: "Built on GCP",
       logo: "/images/logo-googlecloud.svg",
       logoAlt: "Google Cloud",
-      desc: "Vertex AI for image + video generation, Cloud Run for the platform, Gemini as the swappable LLM. Multi-region, scalable, secure.",
+      desc: "World's most prominent Generative Ai services — integrated for efficient content creation.",
       bullet: ["Vertex AI · Gemini · Cloud Run", "Multi-region ASEAN deployment", "$300 credit pilots → enterprise tier"],
       color: "#4285F4",
       cta: "See the GCP architecture",
