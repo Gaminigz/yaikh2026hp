@@ -737,7 +737,7 @@ function LayerStory() {
       : "bg-gradient-to-b from-yai-forest to-[#1A5742] border-2 border-[#0E3B2E] text-white";
 
   return (
-    <Section id="product">
+    <Section id="product" className="!pt-4 lg:!pt-6">
       <SectionEyebrow>The platform</SectionEyebrow>
       {/* Title + subtitle in a 2-col row so the supporting copy sits to the
           right at the title's bottom level, leaving the layer cards to come
