@@ -1550,29 +1550,29 @@ function CustomersStrip() {
     {
       step: "Step 1",
       name: "Cloud · Starter",
-      sub: "3 clients",
+      sub: "3 clients · CORE TEAM",
       h: 160,
       grad: "from-sky-100 to-white",
       accent: "text-yai-blue",
-      icon: <DotCluster count={5} cols={5} color="#1E4DAA" />,
+      icon: <AvatarCluster count={5} size={18} cols={5} />,
     },
     {
       step: "Step 2",
       name: "Cloud · Growth",
-      sub: "2 clients",
+      sub: "2 clients · DEPT",
       h: 190,
       grad: "from-sky-200 to-sky-50",
       accent: "text-yai-blue",
-      icon: <DotCluster count={20} cols={5} color="#1E4DAA" />,
+      icon: <AvatarCluster count={20} size={11} cols={5} />,
     },
     {
       step: "Step 3",
       name: "Cloud · Enterprise",
-      sub: "2 clients",
+      sub: "2 clients · FACTORY",
       h: 220,
       grad: "from-blue-200 to-blue-50",
       accent: "text-yai-blue",
-      icon: <DotCluster count={36} cols={6} color="#1E4DAA" />,
+      icon: <AvatarCluster count={36} size={8} cols={6} />,
     },
     {
       step: "Step 4",
@@ -1604,20 +1604,20 @@ function CustomersStrip() {
     {
       step: "Step 5",
       name: "Agentic",
-      sub: "1 client",
+      sub: "1 client · After ~6 months",
       h: 290,
       grad: "from-violet-300 to-violet-100",
       accent: "text-violet-700",
-      icon: <AgenticCluster />,
+      icon: <AgenticPortraitCluster />,
     },
     {
       step: "Step 6",
       name: "Big Ai Brain",
-      sub: "1 client · 5 factories · 1 chat",
+      sub: "1 client · Boss · ~1 year",
       h: 330,
       grad: "from-orange-300 to-orange-100",
       accent: "text-yai-orange",
-      icon: <BigBrainIcon />,
+      icon: <BossBrainIcon />,
     },
   ];
 
@@ -1855,6 +1855,114 @@ function CommercialisationJourney() {
 }
 
 /* ─── tiny visuals for each step on the ladder ─── */
+
+/** Avatar cluster — real photo portraits in a grid, cycled from the
+ *  5 source images so larger clusters fill in with varied faces. Used
+ *  in Steps 1-3 to show team/department/factory scale visually. */
+function AvatarCluster({
+  count,
+  size,
+  cols,
+}: {
+  count: number;
+  size: number;
+  cols: number;
+}) {
+  const IMAGES = [
+    "/images/agent-9.png",
+    "/images/agent-10.png",
+    "/images/agent-11.png",
+    "/images/agent-22.png",
+    "/images/agent-30.png",
+  ];
+  return (
+    <div
+      className="grid gap-[1.5px]"
+      style={{ gridTemplateColumns: `repeat(${cols}, ${size}px)` }}
+    >
+      {Array.from({ length: count }, (_, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={i}
+          src={IMAGES[i % IMAGES.length]}
+          alt=""
+          className="rounded-full object-cover border border-white/60"
+          style={{ width: size, height: size, objectPosition: "50% 18%" }}
+          draggable={false}
+        />
+      ))}
+    </div>
+  );
+}
+
+/** Agentic step — 4 portrait avatars + a "MANY OTHERS" caption,
+ *  echoing the yai-plan layout where the agentic step features a
+ *  visible team plus many invisible companions. */
+function AgenticPortraitCluster() {
+  const IMAGES = [
+    "/images/agent-9.png",
+    "/images/agent-22.png",
+    "/images/agent-11.png",
+    "/images/agent-30.png",
+  ];
+  return (
+    <div className="flex flex-col items-center gap-1.5">
+      <div className="flex -space-x-1.5">
+        {IMAGES.map((src, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={i}
+            src={src}
+            alt=""
+            className="rounded-full object-cover w-7 h-7 border-2 border-white shadow-sm"
+            style={{ objectPosition: "50% 18%" }}
+            draggable={false}
+          />
+        ))}
+      </div>
+      <div className="text-[8px] font-extrabold uppercase tracking-[0.18em] text-violet-700">
+        + many others
+      </div>
+    </div>
+  );
+}
+
+/** Boss + Big Ai Brain — single large boss avatar with a chat bubble
+ *  icon next to it, sitting above 5 mini factory icons. */
+function BossBrainIcon() {
+  return (
+    <div className="flex flex-col items-center gap-1.5">
+      <div className="relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/agent-10.png"
+          alt="Boss"
+          className="rounded-full object-cover w-10 h-10 border-2 border-white shadow-md"
+          style={{ objectPosition: "50% 18%" }}
+          draggable={false}
+        />
+        {/* chat bubble badge attached to the avatar */}
+        <span className="absolute -right-1 -bottom-1 w-4 h-4 rounded-full bg-white shadow flex items-center justify-center">
+          <svg viewBox="0 0 24 24" className="w-2.5 h-2.5 text-yai-orange" fill="currentColor">
+            <path d="M4 4h16v12H7l-3 3V4z" />
+          </svg>
+        </span>
+      </div>
+      {/* 5 mini factory icons */}
+      <div className="flex items-center gap-0.5 text-yai-orange">
+        {[1, 2, 3, 4, 5].map((n) => (
+          <svg key={n} viewBox="0 0 24 24" className="w-2.5 h-2.5" fill="currentColor">
+            <path d="M3 21h18V11l-6 4V11l-6 4V7L3 11v10z" />
+          </svg>
+        ))}
+      </div>
+      <div className="text-[8px] font-extrabold uppercase tracking-wide text-yai-orange leading-tight text-center">
+        5 factories<br />1 chat
+      </div>
+    </div>
+  );
+}
+
 function DotCluster({ count, cols, color }: { count: number; cols: number; color: string }) {
   return (
     <div className="grid gap-[2px]" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
