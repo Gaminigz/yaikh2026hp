@@ -2164,7 +2164,7 @@ function PartnerStack() {
       tag: "Impact-aligned",
       logo: "/images/logo-jica.svg",
       logoAlt: "JICA",
-      desc: "20 Cambodian engineers, 6 factory pilots, 100,000 worker reach. Aligned with SDGs 8, 9, 12, 13 — decent work, industry, responsible consumption, climate.",
+      desc: "Ongoing activity partnering Asia Pacific's leading technology institute.",
       bullet: ["Ministry of Environment ✓", "Cambodia-born team", "Solar-powered Layer 3 compute"],
       color: "#0A3327",
       cta: "Read the impact dossier",
