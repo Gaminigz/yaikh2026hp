@@ -1115,11 +1115,11 @@ function LayerAnimation({ variant }: { variant: string }) {
        reference. Connected by dashed lines, each speaks in sequence: their
        portrait gets a bright amber ring + a labelled speech bubble pops in. */
     const AGENTS = [
-      { x: 15, y: 22, img: "/images/agent-9.png",  name: "Production", msg: "Request",     alert: false, anim: 1 },
-      { x: 50, y: 10, img: "/images/agent-22.png", name: "QC",         msg: "Defects ↑",   alert: true,  anim: 2 },
-      { x: 85, y: 22, img: "/images/agent-10.png", name: "Dashboard",  msg: "→ GM",        alert: false, anim: 3 },
-      { x: 22, y: 68, img: "/images/agent-11.png", name: "YTM",        msg: "Machine ✕",   alert: true,  anim: 4 },
-      { x: 78, y: 68, img: "/images/agent-30.png", name: "MRP",        msg: "Fabric ↺",    alert: true,  anim: 5 },
+      { x: 15, y: 30, img: "/images/agent-9.png",  name: "Production", msg: "Request",     alert: false, anim: 1 },
+      { x: 50, y: 22, img: "/images/agent-22.png", name: "QC",         msg: "Defects ↑",   alert: true,  anim: 2 },
+      { x: 85, y: 30, img: "/images/agent-10.png", name: "Dashboard",  msg: "→ GM",        alert: false, anim: 3 },
+      { x: 22, y: 72, img: "/images/agent-11.png", name: "YTM",        msg: "Machine ✕",   alert: true,  anim: 4 },
+      { x: 78, y: 72, img: "/images/agent-30.png", name: "MRP",        msg: "Fabric ↺",    alert: true,  anim: 5 },
     ];
     const EDGES: Array<[number, number]> = [
       [0, 1], [1, 2], [0, 3], [3, 4], [4, 2], [1, 3], [1, 4], [0, 2],
@@ -1408,15 +1408,12 @@ function PortraitAgent({
       <div className="mt-1 text-center text-[8px] font-bold uppercase tracking-wider text-white/90 whitespace-nowrap">
         {agent.name}
       </div>
-      {/* Speech bubble — top-row agents put their bubble BELOW (room there);
-          bottom-row agents put it ABOVE (room there). Otherwise the bubble
-          gets clipped by the card edge it's closest to. */}
+      {/* Speech bubble — ALWAYS above each agent's head. Cleanest layout:
+          top-row bubbles sit between the card top and the top-row portraits;
+          bottom-row bubbles sit between the two rows. Never overlap. */}
       <div
         className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap"
-        style={{
-          top:    agent.y > 40 ? "auto" : "calc(100% + 6px)",
-          bottom: agent.y > 40 ? "calc(100% + 6px)" : "auto",
-        }}
+        style={{ bottom: "calc(100% + 6px)" }}
       >
         <div className={`anim-agent-${agent.anim}`}>
           <span
