@@ -2172,7 +2172,7 @@ function PartnerStack() {
   ];
 
   return (
-    <Section id="partners">
+    <Section id="partners" className="!pt-4 lg:!pt-6">
       <SectionEyebrow>Partner stack</SectionEyebrow>
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance">
