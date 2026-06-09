@@ -2396,7 +2396,7 @@ function SC_StepCard({ s }: { s: StaticStep }) {
 
 function SC_ServerPillar({ on, onToggle }: { on: boolean; onToggle: () => void }) {
   return (
-    <div className="relative flex flex-col shrink-0 w-[92px]" style={{ height: 360 }}>
+    <div className="relative flex flex-col shrink-0 w-[124px]" style={{ height: 360 }}>
       <div className={`flex-1 rounded-t-2xl border border-b-0 border-yai-border bg-gradient-to-b ${on ? "from-orange-200 to-orange-50" : "from-indigo-100 to-white"} flex flex-col items-center p-2 text-center transition-colors`}>
         <div className="text-[8px] font-bold uppercase tracking-widest text-gray-500">Step 4</div>
         <div className="text-[11px] font-bold text-yai-navy leading-tight mt-1 px-0.5">Ai Server</div>
@@ -2461,7 +2461,7 @@ function SC_TwinPillar({
   disabled: boolean;
 }) {
   return (
-    <div className={`relative flex flex-col shrink-0 w-[92px] transition-opacity ${disabled ? "opacity-55" : ""}`} style={{ height: 360 }}>
+    <div className={`relative flex flex-col shrink-0 w-[124px] transition-opacity ${disabled ? "opacity-55" : ""}`} style={{ height: 360 }}>
       <div className={`flex-1 rounded-t-2xl border border-b-0 border-yai-border bg-gradient-to-b ${on && !disabled ? "from-indigo-300 to-indigo-50" : "from-indigo-100 to-white"} flex flex-col items-center p-2 text-center transition-colors`}>
         <div className="text-[8px] font-bold uppercase tracking-widest text-gray-500">Step 4</div>
         <div className="text-[11px] font-bold text-yai-navy leading-tight mt-1 px-0.5">{title}</div>
