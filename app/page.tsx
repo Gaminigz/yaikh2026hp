@@ -1161,7 +1161,7 @@ function LayerAnimation({ variant }: { variant: string }) {
       {/* Wave-path flight from home → through all 5 country stops */}
       <path
         d="M 35 60 Q 47 36 60 60 Q 75 84 90 60 Q 105 36 120 60 Q 135 84 150 60 Q 165 36 180 60"
-        stroke="#FFD58A"
+        stroke="#FACC15"
         strokeWidth="0.9"
         strokeDasharray="2.5 3"
         fill="none"
@@ -1172,19 +1172,19 @@ function LayerAnimation({ variant }: { variant: string }) {
       <g className="anim-ready-pulse">
         {/* People */}
         <g transform="translate(22 22)">
-          <circle cx="0" cy="0" r="11" fill="#FFD58A" />
+          <circle cx="0" cy="0" r="11" fill="#FACC15" />
           <circle cx="-2.8" cy="-2.4" r="2.4" fill="#0A3327" />
           <circle cx="2.8"  cy="-2.4" r="2.4" fill="#0A3327" />
           <path d="M -5 1.8 Q 0 5.2 5 1.8" stroke="#0A3327" strokeWidth="2" fill="none" />
         </g>
         {/* AI */}
         <g transform="translate(22 49)">
-          <circle cx="0" cy="0" r="11" fill="#FFD58A" />
+          <circle cx="0" cy="0" r="11" fill="#FACC15" />
           <text x="0" y="4.2" textAnchor="middle" fontSize="13" fontWeight="800" fill="#0A3327">Ai</text>
         </g>
         {/* Capital */}
         <g transform="translate(22 76)">
-          <circle cx="0" cy="0" r="11" fill="#FFD58A" />
+          <circle cx="0" cy="0" r="11" fill="#FACC15" />
           <text x="0" y="4.5" textAnchor="middle" fontSize="13" fontWeight="800" fill="#0A3327">$</text>
         </g>
         {/* READY badge — chunkier */}
@@ -1213,7 +1213,7 @@ function LayerAnimation({ variant }: { variant: string }) {
                 textAnchor="middle"
                 fontSize="7.5"
                 fontWeight="800"
-                fill="#FFD58A"
+                fill="#FACC15"
               >
                 {c.name}
               </text>
@@ -1226,23 +1226,23 @@ function LayerAnimation({ variant }: { variant: string }) {
       <g transform="translate(30 60)">
         <g className="anim-team-journey">
           {/* Motion plume */}
-          <circle cx="-15" cy="0" r="2.2" fill="#FFD58A" opacity="0.35" />
-          <circle cx="-20" cy="0" r="1.4" fill="#FFD58A" opacity="0.2" />
+          <circle cx="-15" cy="0" r="2.2" fill="#FACC15" opacity="0.35" />
+          <circle cx="-20" cy="0" r="1.4" fill="#FACC15" opacity="0.2" />
           {/* People */}
           <g transform="translate(-9 0)">
-            <circle cx="0" cy="0" r="4.5" fill="#FFD58A" stroke="#fff" strokeWidth="0.7" />
+            <circle cx="0" cy="0" r="4.5" fill="#FACC15" stroke="#fff" strokeWidth="0.7" />
             <circle cx="-1.2" cy="-1" r="0.95" fill="#0A3327" />
             <circle cx="1.2"  cy="-1" r="0.95" fill="#0A3327" />
             <path d="M -2 0.5 Q 0 2 2 0.5" stroke="#0A3327" strokeWidth="0.9" fill="none" />
           </g>
           {/* AI */}
           <g transform="translate(0 0)">
-            <circle cx="0" cy="0" r="4.5" fill="#FFD58A" stroke="#fff" strokeWidth="0.7" />
+            <circle cx="0" cy="0" r="4.5" fill="#FACC15" stroke="#fff" strokeWidth="0.7" />
             <text x="0" y="1.7" textAnchor="middle" fontSize="5" fontWeight="800" fill="#0A3327">Ai</text>
           </g>
           {/* Capital */}
           <g transform="translate(9 0)">
-            <circle cx="0" cy="0" r="4.5" fill="#FFD58A" stroke="#fff" strokeWidth="0.7" />
+            <circle cx="0" cy="0" r="4.5" fill="#FACC15" stroke="#fff" strokeWidth="0.7" />
             <text x="0" y="1.9" textAnchor="middle" fontSize="5.5" fontWeight="800" fill="#0A3327">$</text>
           </g>
         </g>
@@ -1256,11 +1256,11 @@ function Factory() {
   return (
     <g>
       <path d="M -10 6 L -10 -3 L -6 -6 L -6 -3 L -2 -6 L -2 -3 L 2 -6 L 2 -3 L 6 -6 L 6 6 Z"
-            fill="#fff" stroke="#FFD58A" strokeWidth="0.8" />
+            fill="#fff" stroke="#FACC15" strokeWidth="0.8" />
       <rect x="-1" y="2" width="2.5" height="4" fill="#0A3327" />
-      <rect x="-8" y="-1" width="1.5" height="1.5" fill="#FFD58A" />
-      <rect x="-4" y="-1" width="1.5" height="1.5" fill="#FFD58A" />
-      <rect x="3"  y="-1" width="1.5" height="1.5" fill="#FFD58A" />
+      <rect x="-8" y="-1" width="1.5" height="1.5" fill="#FACC15" />
+      <rect x="-4" y="-1" width="1.5" height="1.5" fill="#FACC15" />
+      <rect x="3"  y="-1" width="1.5" height="1.5" fill="#FACC15" />
     </g>
   );
 }
@@ -1372,7 +1372,7 @@ function PortraitAgent({
     alert: boolean; anim: number;
   };
 }) {
-  const ringColor = agent.alert ? "#F37021" : "#FFD58A";
+  const ringColor = agent.alert ? "#F37021" : "#FACC15";
   return (
     <div
       className="absolute"
@@ -1434,7 +1434,7 @@ function PortraitAgent({
 /** Tiny humanoid agent — head + torso, fits inside a 10-unit halo.
  *  Alert variant tints body orange to flag a problem-reporting agent. */
 function Humanoid({ alert }: { alert: boolean }) {
-  const body = alert ? "#F37021" : "#FFD58A";
+  const body = alert ? "#F37021" : "#FACC15";
   return (
     <g>
       <circle cx="0" cy="-3" r="2.6" fill={body} stroke="#fff" strokeWidth="0.4" />
