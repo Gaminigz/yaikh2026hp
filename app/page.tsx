@@ -1581,7 +1581,7 @@ function CustomersStrip() {
     {
       step: "Step 4",
       name: "Ai Server",
-      clients: null,
+      clients: 2,
       capacity: "Hardware",
       h: 260,
       grad: "from-indigo-200 to-indigo-50",
