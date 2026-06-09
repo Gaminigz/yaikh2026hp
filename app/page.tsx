@@ -2379,7 +2379,7 @@ const SC_AFTER: StaticStep[] = [
 
 function SC_StepCard({ s }: { s: StaticStep }) {
   return (
-    <div className="relative flex flex-col shrink-0 w-[120px]" style={{ height: s.h }}>
+    <div className="relative flex flex-col shrink-0 w-[124px]" style={{ height: s.h }}>
       <div className={`flex-1 rounded-t-2xl border border-b-0 border-yai-border bg-gradient-to-b ${s.bg} flex flex-col items-center p-2 text-center`}>
         <div className="text-[10px] font-bold uppercase tracking-widest text-gray-500">{s.step}</div>
         <div className="text-[13px] font-bold text-yai-navy leading-tight mt-1.5 px-0.5">{s.stage}</div>
@@ -2532,7 +2532,7 @@ function PricingStaircase() {
       <div className="overflow-x-auto pb-4 -mx-1 px-1">
         <LayoutGroup>
           <div className="min-w-max">
-            <div className="flex items-end gap-2">
+            <div className="flex items-end gap-4">
               {SC_BEFORE.map((s) => <SC_StepCard key={s.step} s={s} />)}
               <SC_ServerPillar on={server} onToggle={toggleServer} />
               <SC_TwinPillar
@@ -2555,20 +2555,20 @@ function PricingStaircase() {
               />
               {SC_AFTER.map((s) => <SC_StepCard key={s.step} s={s} />)}
             </div>
-            {/* Phase labels spanning their pillars (towers 120w + 8px gaps) */}
-            <div className="flex gap-2 mt-3">
-              <div style={{ width: 6 * 120 + 5 * 8 }} className="shrink-0 rounded-md bg-yai-blue/10 border border-yai-blue/30 py-2 text-center">
+            {/* Phase labels spanning their pillars (towers 124w + 16px gaps · matches Journey ladder) */}
+            <div className="flex gap-4 mt-3">
+              <div style={{ width: 6 * 124 + 5 * 16 }} className="shrink-0 rounded-md bg-yai-blue/10 border border-yai-blue/30 py-2 text-center">
                 <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-yai-blue">Chaos → Digitalization</span>
               </div>
-              <div style={{ width: 2 * 120 + 1 * 8 }} className="shrink-0 rounded-md bg-yai-orange/10 border border-yai-orange/30 py-2 text-center">
+              <div style={{ width: 2 * 124 + 1 * 16 }} className="shrink-0 rounded-md bg-yai-orange/10 border border-yai-orange/30 py-2 text-center">
                 <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-yai-orange">Big Ai Brain</span>
               </div>
             </div>
 
             {/* Step 4 total summary — under the Server + Admin + Operation block */}
-            <div className="flex gap-2 mt-3">
-              <div style={{ width: 3 * 120 + 2 * 8 }} className="shrink-0" aria-hidden />
-              <div style={{ width: 3 * 120 + 2 * 8 }} className="shrink-0 rounded-xl border-2 border-dashed border-yai-blue/40 bg-yai-blue/5 p-3">
+            <div className="flex gap-4 mt-3">
+              <div style={{ width: 3 * 124 + 2 * 16 }} className="shrink-0" aria-hidden />
+              <div style={{ width: 3 * 124 + 2 * 16 }} className="shrink-0 rounded-xl border-2 border-dashed border-yai-blue/40 bg-yai-blue/5 p-3">
                 <div className="text-[10px] uppercase tracking-widest font-extrabold text-yai-blue text-center mb-2">Step 4 · Total</div>
                 <div className="flex items-baseline justify-between gap-2 text-xs">
                   <span className="text-[10px] uppercase tracking-wider font-bold text-yai-orange">Server</span>
@@ -2595,7 +2595,7 @@ function PricingStaircase() {
                   </motion.span>
                 </div>
               </div>
-              <div style={{ width: 2 * 120 + 1 * 8 }} className="shrink-0" aria-hidden />
+              <div style={{ width: 2 * 124 + 1 * 16 }} className="shrink-0" aria-hidden />
             </div>
           </div>
         </LayoutGroup>
