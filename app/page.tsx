@@ -1728,8 +1728,13 @@ function FlatStepColumn({
         {s.name}
       </div>
 
-      {/* BIG client count + small "clients" label */}
-      <div className="flex items-baseline gap-1 mt-2">
+      {/* Icon area takes the upper middle space */}
+      <div className="flex-1 flex items-center justify-center w-full mt-3 mb-2">
+        {s.icon}
+      </div>
+
+      {/* BIG client count + caption — anchored at the BOTTOM of the tower */}
+      <div className="flex items-baseline gap-1">
         {s.clients !== null ? (
           <>
             <span className={`text-4xl font-extrabold leading-none ${s.accent}`}>
@@ -1748,10 +1753,6 @@ function FlatStepColumn({
       {/* Capacity caption — CORE TEAM / DEPT / FACTORY / Hardware / etc. */}
       <div className={`text-[9px] uppercase tracking-[0.2em] font-extrabold mt-1 ${s.accent} opacity-80`}>
         {s.capacity}
-      </div>
-
-      <div className="flex-1 flex items-center justify-center w-full mt-2">
-        {s.icon}
       </div>
     </div>
   );
