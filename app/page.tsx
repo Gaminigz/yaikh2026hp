@@ -2144,7 +2144,7 @@ function PartnerStack() {
       tag: "Powered by Claude",
       logo: "/images/logo-claude.svg",
       logoAlt: "Anthropic",
-      desc: "Every Yai agent — Accountant, YQMS, YPM, Digital Audit — runs on Claude. Voice-to-workflow, text instructions, real-time Ai guidance.",
+      desc: "Technical advisory partnership with the world's leading enterprise Ai venture — certifying our system developers.",
       bullet: ["Production use of Claude Sonnet 4.5", "Anthropic Academy certified team", "Responsible-AI policy live"],
       color: "#D97757",
       cta: "Read the technical brief",
