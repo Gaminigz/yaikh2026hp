@@ -1541,7 +1541,8 @@ function CustomersStrip() {
   const STEPS: Array<{
     step: string;
     name: string;
-    sub: string;
+    clients: number | null;   // null = not available yet (e.g. Ai Server)
+    capacity: string;          // CORE TEAM · DEPT · FACTORY · Hardware …
     h: number;
     grad: string;
     accent: string;
@@ -1550,8 +1551,9 @@ function CustomersStrip() {
     {
       step: "Step 1",
       name: "Cloud · Starter",
-      sub: "3 clients · CORE TEAM",
-      h: 160,
+      clients: 3,
+      capacity: "Core team",
+      h: 170,
       grad: "from-sky-100 to-white",
       accent: "text-yai-blue",
       icon: <AvatarCluster count={5} size={18} cols={5} />,
@@ -1559,8 +1561,9 @@ function CustomersStrip() {
     {
       step: "Step 2",
       name: "Cloud · Growth",
-      sub: "2 clients · DEPT",
-      h: 190,
+      clients: 2,
+      capacity: "Dept",
+      h: 200,
       grad: "from-sky-200 to-sky-50",
       accent: "text-yai-blue",
       icon: <AvatarCluster count={20} size={11} cols={5} />,
@@ -1568,8 +1571,9 @@ function CustomersStrip() {
     {
       step: "Step 3",
       name: "Cloud · Enterprise",
-      sub: "2 clients · FACTORY",
-      h: 220,
+      clients: 2,
+      capacity: "Factory",
+      h: 230,
       grad: "from-blue-200 to-blue-50",
       accent: "text-yai-blue",
       icon: <AvatarCluster count={36} size={8} cols={6} />,
@@ -1577,8 +1581,9 @@ function CustomersStrip() {
     {
       step: "Step 4",
       name: "Ai Server",
-      sub: "Hardware",
-      h: 250,
+      clients: null,
+      capacity: "Hardware",
+      h: 260,
       grad: "from-indigo-200 to-indigo-50",
       accent: "text-indigo-700",
       icon: <ServerStack />,
@@ -1586,8 +1591,9 @@ function CustomersStrip() {
     {
       step: "Step 4",
       name: "Administrative",
-      sub: "2 clients",
-      h: 250,
+      clients: 2,
+      capacity: "Tools",
+      h: 260,
       grad: "from-indigo-300 to-indigo-100",
       accent: "text-indigo-700",
       icon: <BriefcaseIcon />,
@@ -1595,8 +1601,9 @@ function CustomersStrip() {
     {
       step: "Step 4",
       name: "Operation",
-      sub: "1 client",
-      h: 250,
+      clients: 1,
+      capacity: "Tools",
+      h: 260,
       grad: "from-indigo-400 to-indigo-200",
       accent: "text-indigo-800",
       icon: <FactoryIcon />,
@@ -1604,8 +1611,9 @@ function CustomersStrip() {
     {
       step: "Step 5",
       name: "Agentic",
-      sub: "1 client · After ~6 months",
-      h: 290,
+      clients: 1,
+      capacity: "~6 months",
+      h: 300,
       grad: "from-violet-300 to-violet-100",
       accent: "text-violet-700",
       icon: <AgenticPortraitCluster />,
@@ -1613,8 +1621,9 @@ function CustomersStrip() {
     {
       step: "Step 6",
       name: "Big Ai Brain",
-      sub: "1 client · Boss · ~1 year",
-      h: 330,
+      clients: 1,
+      capacity: "Boss · ~1 yr",
+      h: 340,
       grad: "from-orange-300 to-orange-100",
       accent: "text-yai-orange",
       icon: <BossBrainIcon />,
@@ -1694,13 +1703,16 @@ function TierGroup({
   );
 }
 
-/** Flat step column — no tier badge, no bottom slot. Clean tower
- *  showing STEP N · name · sub · icon. Used by the staircase row. */
+/** Flat step column — no tier badge, no bottom slot. Renders the
+ *  client count as a BIG hero number with "clients" + capacity caption
+ *  below, so the customer count reads at a glance. */
 function FlatStepColumn({
   s,
 }: {
   s: {
-    step: string; name: string; sub: string; h: number;
+    step: string; name: string;
+    clients: number | null; capacity: string;
+    h: number;
     grad: string; accent: string; icon: React.ReactNode;
   };
 }) {
@@ -1715,10 +1727,30 @@ function FlatStepColumn({
       <div className={`text-[12px] font-bold leading-tight mt-1.5 ${s.accent}`}>
         {s.name}
       </div>
-      <div className="text-[10px] text-gray-500 mt-1 leading-tight px-1">
-        {s.sub}
+
+      {/* BIG client count + small "clients" label */}
+      <div className="flex items-baseline gap-1 mt-2">
+        {s.clients !== null ? (
+          <>
+            <span className={`text-4xl font-extrabold leading-none ${s.accent}`}>
+              {s.clients}
+            </span>
+            <span className="text-[9px] uppercase tracking-widest font-extrabold text-gray-500">
+              {s.clients === 1 ? "client" : "clients"}
+            </span>
+          </>
+        ) : (
+          <span className="text-[9px] uppercase tracking-widest font-extrabold text-gray-400">
+            — not yet —
+          </span>
+        )}
       </div>
-      <div className="flex-1 flex items-center justify-center w-full">
+      {/* Capacity caption — CORE TEAM / DEPT / FACTORY / Hardware / etc. */}
+      <div className={`text-[9px] uppercase tracking-[0.2em] font-extrabold mt-1 ${s.accent} opacity-80`}>
+        {s.capacity}
+      </div>
+
+      <div className="flex-1 flex items-center justify-center w-full mt-2">
         {s.icon}
       </div>
     </div>
