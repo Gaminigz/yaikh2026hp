@@ -2219,7 +2219,7 @@ function PartnerStack() {
 /* ─────────────── PRICING (full yai-plan PricingStaircase) ─────────────── */
 function PricingTease() {
   return (
-    <Section id="pricing" className="bg-gradient-to-b from-white to-yai-bg !pt-4 lg:!pt-6">
+    <Section id="pricing" className="bg-gradient-to-b from-white to-yai-bg !pt-2 lg:!pt-3">
       <SectionEyebrow>Pricing</SectionEyebrow>
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance">
@@ -2231,7 +2231,7 @@ function PricingTease() {
         </p>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-5">
         <PricingStaircase />
       </div>
     </Section>
