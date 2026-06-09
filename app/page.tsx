@@ -1550,8 +1550,8 @@ function CustomersStrip() {
     {
       step: "Step 1",
       name: "Cloud · Starter",
-      sub: "5 key members",
-      h: 150,
+      sub: "3 clients",
+      h: 160,
       grad: "from-sky-100 to-white",
       accent: "text-yai-blue",
       icon: <DotCluster count={5} cols={5} color="#1E4DAA" />,
@@ -1559,8 +1559,8 @@ function CustomersStrip() {
     {
       step: "Step 2",
       name: "Cloud · Growth",
-      sub: "5 → 300 · department",
-      h: 180,
+      sub: "2 clients",
+      h: 190,
       grad: "from-sky-200 to-sky-50",
       accent: "text-yai-blue",
       icon: <DotCluster count={20} cols={5} color="#1E4DAA" />,
@@ -1568,8 +1568,8 @@ function CustomersStrip() {
     {
       step: "Step 3",
       name: "Cloud · Enterprise",
-      sub: "300 → 1,000 · factory",
-      h: 210,
+      sub: "2 clients",
+      h: 220,
       grad: "from-blue-200 to-blue-50",
       accent: "text-yai-blue",
       icon: <DotCluster count={36} cols={6} color="#1E4DAA" />,
@@ -1577,17 +1577,17 @@ function CustomersStrip() {
     {
       step: "Step 4",
       name: "Ai Server",
-      sub: "Hardware · 1,000+ users",
-      h: 240,
-      grad: "from-blue-300 to-blue-100",
-      accent: "text-yai-blue",
+      sub: "Hardware",
+      h: 250,
+      grad: "from-indigo-200 to-indigo-50",
+      accent: "text-indigo-700",
       icon: <ServerStack />,
     },
     {
       step: "Step 4",
       name: "Administrative",
-      sub: "tools",
-      h: 240,
+      sub: "2 clients",
+      h: 250,
       grad: "from-indigo-300 to-indigo-100",
       accent: "text-indigo-700",
       icon: <BriefcaseIcon />,
@@ -1595,20 +1595,29 @@ function CustomersStrip() {
     {
       step: "Step 4",
       name: "Operation",
-      sub: "tools",
-      h: 240,
+      sub: "1 client",
+      h: 250,
       grad: "from-indigo-400 to-indigo-200",
       accent: "text-indigo-800",
       icon: <FactoryIcon />,
     },
     {
-      step: "Step 5 → 6",
-      name: "Agentic → Big Ai Brain",
-      sub: "After ~6 mo · 5 factories · 1 chat",
-      h: 320,
+      step: "Step 5",
+      name: "Agentic",
+      sub: "1 client",
+      h: 290,
+      grad: "from-violet-300 to-violet-100",
+      accent: "text-violet-700",
+      icon: <AgenticCluster />,
+    },
+    {
+      step: "Step 6",
+      name: "Big Ai Brain",
+      sub: "1 client · 5 factories · 1 chat",
+      h: 330,
       grad: "from-orange-300 to-orange-100",
       accent: "text-yai-orange",
-      icon: <ApexBrainIcon />,
+      icon: <BigBrainIcon />,
     },
   ];
 
@@ -1631,33 +1640,10 @@ function CustomersStrip() {
       </div>
 
       <div className="overflow-x-auto pb-4 mt-10">
-        <div className="flex items-end gap-6 lg:gap-8 min-w-max md:min-w-0">
-          {/* Tier 1 · Cloud + Hardware — Steps 1-4 (4 columns) */}
-          <TierGroup
-            steps={STEPS.slice(0, 4)}
-            phase="1"
-            label="Cloud + Hardware"
-            color="text-yai-blue"
-            bg="#1E4DAA"
-          />
-
-          {/* Tier 2 · Tools — Administrative + Operation (2 columns) */}
-          <TierGroup
-            steps={STEPS.slice(4, 6)}
-            phase="2"
-            label="Tools"
-            color="text-indigo-700"
-            bg="#4F46E5"
-          />
-
-          {/* Tier 3 · Ai — Agentic → Big Ai Brain merged (1 column · apex) */}
-          <TierGroup
-            steps={STEPS.slice(6, 7)}
-            phase="3"
-            label="Ai"
-            color="text-yai-orange"
-            bg="#F37021"
-          />
+        <div className="flex items-end gap-2 min-w-max md:min-w-0">
+          {STEPS.map((s) => (
+            <FlatStepColumn key={`${s.step}-${s.name}`} s={s} />
+          ))}
         </div>
       </div>
       <p className="text-xs text-gray-500 italic mt-4 max-w-3xl">
@@ -1708,6 +1694,40 @@ function TierGroup({
   );
 }
 
+/** Flat step column — no tier badge, no bottom slot. Clean tower
+ *  showing STEP N · name · sub · icon. Used by the staircase row. */
+function FlatStepColumn({
+  s,
+}: {
+  s: {
+    step: string; name: string; sub: string; h: number;
+    grad: string; accent: string; icon: React.ReactNode;
+  };
+}) {
+  return (
+    <div
+      className={`flex flex-col shrink-0 w-[112px] rounded-2xl border border-yai-border bg-gradient-to-b ${s.grad} items-center p-3 text-center`}
+      style={{ height: s.h }}
+    >
+      <div className="text-[9px] font-bold uppercase tracking-widest text-gray-500">
+        {s.step}
+      </div>
+      <div className={`text-[12px] font-bold leading-tight mt-1.5 ${s.accent}`}>
+        {s.name}
+      </div>
+      <div className="text-[10px] text-gray-500 mt-1 leading-tight px-1">
+        {s.sub}
+      </div>
+      <div className="flex-1 flex items-center justify-center w-full">
+        {s.icon}
+      </div>
+    </div>
+  );
+}
+
+/** Legacy step column with tier-circle badge — retained for reference
+ *  in case we want the tier-grouped view back. Not used in the current
+ *  flat layout. */
 function StepColumn({
   s,
   tier,
