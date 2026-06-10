@@ -1722,42 +1722,29 @@ function FlatStepColumn({
   };
 }) {
   return (
-    <div
-      className={`flex flex-col shrink-0 w-[124px] rounded-2xl border border-yai-border bg-gradient-to-b ${s.grad} items-center px-3.5 py-4 text-center`}
-      style={{ height: s.h }}
-    >
-      <div className="text-[9px] font-bold uppercase tracking-widest text-gray-500">
-        {s.step}
+    <div className="flex flex-col shrink-0 w-[124px]" style={{ height: s.h }}>
+      {/* Gradient tower body */}
+      <div className={`flex-1 rounded-t-2xl border border-b-0 border-yai-border bg-gradient-to-b ${s.grad} flex flex-col items-center px-3.5 pt-4 pb-3 text-center`}>
+        <div className="text-[9px] font-bold uppercase tracking-widest text-gray-500">
+          {s.step}
+        </div>
+        <div className={`text-[12px] font-bold leading-tight mt-1.5 ${s.accent}`}>
+          {s.name}
+        </div>
+        {/* Icon / avatar cluster fills the middle */}
+        <div className="flex-1 flex items-center justify-center w-full mt-3">
+          {s.icon}
+        </div>
       </div>
-      <div className={`text-[12px] font-bold leading-tight mt-1.5 ${s.accent}`}>
-        {s.name}
-      </div>
-
-      {/* Icon area takes the upper middle space */}
-      <div className="flex-1 flex items-center justify-center w-full mt-3 mb-2">
-        {s.icon}
-      </div>
-
-      {/* BIG client count + caption — anchored at the BOTTOM of the tower */}
-      <div className="flex items-baseline gap-1">
-        {s.clients !== null ? (
-          <>
-            <span className={`text-4xl font-extrabold leading-none ${s.accent}`}>
-              {s.clients}
-            </span>
-            <span className="text-[9px] uppercase tracking-widest font-extrabold text-gray-500">
-              {s.clients === 1 ? "client" : "clients"}
-            </span>
-          </>
-        ) : (
-          <span className="text-[9px] uppercase tracking-widest font-extrabold text-gray-400">
-            — not yet —
-          </span>
-        )}
-      </div>
-      {/* Capacity caption — CORE TEAM / DEPT / FACTORY / Hardware / etc. */}
-      <div className={`text-[9px] uppercase tracking-[0.2em] font-extrabold mt-1 ${s.accent} opacity-80`}>
-        {s.capacity}
+      {/* White tab — BIG number only (no "clients" word) + capacity caption.
+          Mirrors the price slot on the PricingStaircase towers. */}
+      <div className="rounded-b-xl border border-yai-border bg-white text-center py-2.5 px-1.5">
+        <div className={`text-3xl font-extrabold leading-none ${s.accent}`}>
+          {s.clients !== null ? s.clients : "—"}
+        </div>
+        <div className={`text-[9px] uppercase tracking-[0.18em] font-extrabold mt-1 ${s.accent} opacity-80`}>
+          {s.capacity}
+        </div>
       </div>
     </div>
   );
