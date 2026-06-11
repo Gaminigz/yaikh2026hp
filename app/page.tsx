@@ -75,7 +75,7 @@ function Nav() {
             <a href="#customers" className="hover:text-yai-orange transition">Customers</a>
             <a href="#partners"  className="hover:text-yai-orange transition">Partners</a>
             <a href="#pricing"   className="hover:text-yai-orange transition">Pricing</a>
-            <a href="#impact"    className="hover:text-yai-orange transition">Impact</a>
+            <a href="#impact"    className="hover:text-yai-orange transition">Flashcards</a>
           </div>
         </div>
 
