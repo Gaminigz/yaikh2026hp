@@ -2691,8 +2691,225 @@ function Impact() {
             />
           ))}
         </div>
+
+        {/* Per-agent transformation stories — one card = 4 eras side by side */}
+        <AccountingTransformCard />
       </div>
     </Section>
+  );
+}
+
+/** One agent's transformation in a single card — Accounting example.
+ *  4 animated mini-scenes side by side: paper era → digital forms →
+ *  agents automating → full-Ai analysis. */
+function AccountingTransformCard() {
+  const ERAS: Array<{
+    tag: string;
+    accent: string;
+    caption: string;
+    scene: React.ReactNode;
+  }> = [
+    {
+      tag: "Today",
+      accent: "#94A3B8",
+      caption: "All paper. Ledger books, calculators, binders stacked high.",
+      scene: <AccPaperScene />,
+    },
+    {
+      tag: "Layer 1",
+      accent: "#F37021",
+      caption: "Digitalised — no more paper, but still clicking and typing forms.",
+      scene: <AccFormScene />,
+    },
+    {
+      tag: "Layer 2",
+      accent: "#1E4DAA",
+      caption: "Agents take over — vouchers process themselves, the human just confirms.",
+      scene: <AccAgentScene />,
+    },
+    {
+      tag: "Layer 3",
+      accent: "#0A3327",
+      caption: "Full Ai — deeper analysis, forecasts, near-perfect accuracy.",
+      scene: <AccAnalysisScene />,
+    },
+  ];
+
+  return (
+    <div className="mt-14 rounded-3xl bg-white text-yai-navy p-6 lg:p-8 shadow-2xl">
+      <div className="flex items-baseline gap-3 flex-wrap">
+        <span className="text-[10px] uppercase tracking-[0.22em] font-extrabold text-yai-orange">
+          Agent transformation
+        </span>
+        <h3 className="font-serif text-xl lg:text-2xl font-semibold">
+          Accounting — one desk, four eras.
+        </h3>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        {ERAS.map((e, i) => (
+          <div key={e.tag} className="relative">
+            {/* arrow between panels (desktop) */}
+            {i > 0 && (
+              <div className="hidden lg:flex absolute -left-3.5 top-16 z-10 w-7 h-7 rounded-full bg-white border border-yai-border shadow items-center justify-center text-yai-orange text-sm font-black">
+                →
+              </div>
+            )}
+            <div className="rounded-2xl border border-yai-border bg-yai-bg/60 overflow-hidden h-full flex flex-col">
+              <div
+                className="text-[10px] uppercase tracking-[0.18em] font-extrabold text-white px-3 py-1.5"
+                style={{ background: e.accent }}
+              >
+                {e.tag}
+              </div>
+              <div className="px-2 pt-2">{e.scene}</div>
+              <div className="text-[11.5px] text-gray-600 leading-snug px-3 py-3 mt-auto">
+                {e.caption}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Era 1 — paper chaos: bobbing paper piles, fluttering sheet, head-wobble
+   accountant hammering a calculator. */
+function AccPaperScene() {
+  return (
+    <svg viewBox="0 0 160 110" className="w-full h-auto">
+      {/* desk */}
+      <rect x="14" y="74" width="132" height="4" rx="2" fill="#CBD5E1" />
+      <line x1="30" y1="78" x2="30" y2="100" stroke="#CBD5E1" strokeWidth="3" />
+      <line x1="130" y1="78" x2="130" y2="100" stroke="#CBD5E1" strokeWidth="3" />
+      {/* accountant */}
+      <g className="anim-head-wobble">
+        <circle cx="52" cy="40" r="9" fill="#1F2937" />
+      </g>
+      <line x1="52" y1="49" x2="52" y2="68" stroke="#1F2937" strokeWidth="4" />
+      <g className="anim-desk-typing">
+        <line x1="52" y1="56" x2="68" y2="66" stroke="#1F2937" strokeWidth="3" />
+      </g>
+      {/* calculator */}
+      <rect x="66" y="64" width="16" height="10" rx="1.5" fill="#475569" />
+      <rect x="68" y="66" width="12" height="3" rx="0.5" fill="#94A3B8" />
+      {/* ledger book */}
+      <rect x="88" y="66" width="22" height="8" rx="1" fill="#fff" stroke="#94A3B8" strokeWidth="1" />
+      <line x1="99" y1="66" x2="99" y2="74" stroke="#94A3B8" strokeWidth="0.8" />
+      {/* bobbing paper piles */}
+      <g className="anim-pile-bob">
+        <rect x="116" y="48" width="24" height="4" fill="#fff" stroke="#94A3B8" strokeWidth="0.8" />
+        <rect x="118" y="52" width="24" height="4" fill="#fff" stroke="#94A3B8" strokeWidth="0.8" />
+        <rect x="115" y="56" width="24" height="4" fill="#fff" stroke="#94A3B8" strokeWidth="0.8" />
+        <rect x="117" y="60" width="24" height="4" fill="#fff" stroke="#94A3B8" strokeWidth="0.8" />
+        <rect x="116" y="64" width="24" height="10" fill="#fff" stroke="#94A3B8" strokeWidth="0.8" />
+      </g>
+      {/* fluttering loose sheet */}
+      <g className="anim-paper-flutter">
+        <rect x="20" y="26" width="12" height="15" rx="1" fill="#fff" stroke="#94A3B8" strokeWidth="0.8" />
+        <line x1="23" y1="31" x2="29" y2="31" stroke="#CBD5E1" strokeWidth="1" />
+        <line x1="23" y1="35" x2="29" y2="35" stroke="#CBD5E1" strokeWidth="1" />
+      </g>
+    </svg>
+  );
+}
+
+/* Era 2 — digital forms: fields fill themselves left-to-right while a
+   cursor taps SUBMIT; no paper anywhere. */
+function AccFormScene() {
+  return (
+    <svg viewBox="0 0 160 110" className="w-full h-auto">
+      {/* monitor */}
+      <rect x="30" y="18" width="100" height="64" rx="4" fill="#fff" stroke="#1E4DAA" strokeWidth="1.6" />
+      <rect x="68" y="84" width="24" height="4" rx="2" fill="#1E4DAA" />
+      {/* form title bar */}
+      <rect x="36" y="24" width="42" height="5" rx="2.5" fill="#BFD2F2" />
+      {/* fields — staggered self-filling bars */}
+      {[36, 48, 60].map((y, i) => (
+        <g key={y}>
+          <rect x="36" y={y} width="88" height="8" rx="2" fill="#EFF4FB" stroke="#BFD2F2" strokeWidth="0.8" />
+          <rect
+            x="38" y={y + 2} width="70" height="4" rx="2" fill="#1E4DAA" opacity="0.85"
+            className="anim-form-fill"
+            style={{ animationDelay: `${i * 0.35}s` }}
+          />
+        </g>
+      ))}
+      {/* submit button + flash */}
+      <rect x="92" y="71" width="32" height="8" rx="4" fill="#F37021" className="anim-submit-flash" />
+      <text x="108" y="77" textAnchor="middle" fontSize="5" fontWeight="800" fill="#fff">SUBMIT</text>
+      {/* cursor tapping the button */}
+      <g className="anim-cursor-tap">
+        <path d="M 112 80 l 5 12 l 2.4 -4.6 l 5 1.6 z" fill="#1F2937" />
+      </g>
+    </svg>
+  );
+}
+
+/* Era 3 — agents automate: vouchers glide INTO the Ai agent, approval
+   ticks pop OUT; the human just watches. */
+function AccAgentScene() {
+  return (
+    <svg viewBox="0 0 160 110" className="w-full h-auto">
+      {/* incoming vouchers */}
+      {[0, 0.85].map((d, i) => (
+        <g key={i} className="anim-doc-in" style={{ animationDelay: `${d}s` }}>
+          <rect x="14" y={36 + i * 22} width="14" height="18" rx="1.5" fill="#fff" stroke="#1E4DAA" strokeWidth="1" />
+          <line x1="17" y1={42 + i * 22} x2="25" y2={42 + i * 22} stroke="#BFD2F2" strokeWidth="1.2" />
+          <line x1="17" y1={46 + i * 22} x2="25" y2={46 + i * 22} stroke="#BFD2F2" strokeWidth="1.2" />
+        </g>
+      ))}
+      {/* the Ai agent — glowing */}
+      <g className="anim-agent-glow">
+        <circle cx="80" cy="54" r="16" fill="#1E4DAA" />
+        <text x="80" y="59" textAnchor="middle" fontSize="11" fontWeight="800" fill="#fff">Ai</text>
+      </g>
+      {/* approval ticks popping out */}
+      {[0, 0.85].map((d, i) => (
+        <g key={i} className="anim-check-pop" style={{ animationDelay: `${d + 0.4}s` }}>
+          <circle cx={118 + i * 18} cy={44 + i * 20} r="7" fill="#10B981" />
+          <path d={`M ${114.5 + i * 18} ${44 + i * 20} l 2.5 3 l 4.5 -5.5`} stroke="#fff" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+        </g>
+      ))}
+      {/* human supervising, relaxed */}
+      <circle cx="80" cy="92" r="5" fill="#1F2937" />
+      <path d="M 72 103 Q 80 96 88 103" stroke="#1F2937" strokeWidth="2.5" fill="none" />
+    </svg>
+  );
+}
+
+/* Era 4 — full Ai: analytics bars grow, accuracy badge pulses. */
+function AccAnalysisScene() {
+  return (
+    <svg viewBox="0 0 160 110" className="w-full h-auto">
+      {/* chart frame */}
+      <line x1="26" y1="22" x2="26" y2="84" stroke="#CBD5E1" strokeWidth="1.5" />
+      <line x1="26" y1="84" x2="128" y2="84" stroke="#CBD5E1" strokeWidth="1.5" />
+      {/* growing bars */}
+      {[
+        { x: 36, h: 24, c: "#1E4DAA", d: 0 },
+        { x: 56, h: 34, c: "#1E4DAA", d: 0.25 },
+        { x: 76, h: 46, c: "#F37021", d: 0.5 },
+        { x: 96, h: 56, c: "#F37021", d: 0.75 },
+      ].map((b) => (
+        <rect
+          key={b.x}
+          x={b.x} y={84 - b.h} width="13" height={b.h} rx="2"
+          fill={b.c}
+          className="anim-bar-grow"
+          style={{ animationDelay: `${b.d}s` }}
+        />
+      ))}
+      {/* trend arrow */}
+      <path d="M 32 64 L 60 54 L 84 40 L 112 24" stroke="#10B981" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="3 3" />
+      <path d="M 112 24 l -7 0 m 7 0 l -1 7" stroke="#10B981" strokeWidth="2" fill="none" strokeLinecap="round" />
+      {/* accuracy badge */}
+      <g className="anim-acc-pulse">
+        <rect x="116" y="42" width="34" height="14" rx="7" fill="#0A3327" />
+        <text x="133" y="52" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#FACC15">99.9%</text>
+      </g>
+    </svg>
   );
 }
 

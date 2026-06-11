@@ -172,6 +172,55 @@
   .anim-laptop-shake { animation: laptop-shake 0.25s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
   .anim-frustrated-head { animation: frustrated-head 0.3s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
 
+  /* ── Accounting-transformation card (4-era strip) ── */
+  /* Era 2: form fields fill one after another, then a cursor taps submit */
+  @keyframes form-fill {
+    0%, 10%   { transform: scaleX(0); opacity: 0.6; }
+    35%, 80%  { transform: scaleX(1); opacity: 1; }
+    92%, 100% { transform: scaleX(0); opacity: 0.6; }
+  }
+  @keyframes cursor-tap {
+    0%, 55%   { transform: translate(0, 0); }
+    65%       { transform: translate(-2px, -2px); }
+    72%, 78%  { transform: translate(0, 0) scale(0.85); }
+    85%, 100% { transform: translate(0, 0); }
+  }
+  @keyframes submit-flash {
+    0%, 70%   { opacity: 1; }
+    74%, 80%  { opacity: 0.4; }
+    84%, 100% { opacity: 1; }
+  }
+  /* Era 3: documents glide INTO the agent, ticks pop OUT */
+  @keyframes doc-in {
+    0%        { transform: translateX(0); opacity: 0; }
+    12%       { opacity: 1; }
+    45%       { transform: translateX(34px); opacity: 1; }
+    55%, 100% { transform: translateX(34px); opacity: 0; }
+  }
+  @keyframes check-pop {
+    0%, 45%   { transform: scale(0); opacity: 0; }
+    58%       { transform: scale(1.25); opacity: 1; }
+    66%, 88%  { transform: scale(1); opacity: 1; }
+    100%      { transform: scale(0); opacity: 0; }
+  }
+  /* Era 4: analytics bars grow, accuracy badge pulses */
+  @keyframes bar-grow {
+    0%, 8%    { transform: scaleY(0.15); }
+    45%, 85%  { transform: scaleY(1); }
+    100%      { transform: scaleY(0.15); }
+  }
+  @keyframes acc-pulse {
+    0%, 100%  { transform: scale(1); opacity: 0.9; }
+    50%       { transform: scale(1.12); opacity: 1; }
+  }
+  .anim-form-fill    { animation: form-fill 3.2s ease-in-out infinite; transform-origin: left center; transform-box: fill-box; }
+  .anim-cursor-tap   { animation: cursor-tap 3.2s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  .anim-submit-flash { animation: submit-flash 3.2s ease-in-out infinite; }
+  .anim-doc-in       { animation: doc-in 2.6s ease-in-out infinite; transform-box: fill-box; }
+  .anim-check-pop    { animation: check-pop 2.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  .anim-bar-grow     { animation: bar-grow 3s ease-in-out infinite; transform-origin: center bottom; transform-box: fill-box; }
+  .anim-acc-pulse    { animation: acc-pulse 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
   /* Layer 3 — Full Ai expansion journey across 5 countries.
      Team base position is set on outer <g>; this CSS adds the journey
      offset relative to base. Each factory pops in when the team arrives
