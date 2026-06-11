@@ -2602,37 +2602,93 @@ function PricingStaircase() {
 
 /* ─────────────── IMPACT (JICA-flavoured) ─────────────── */
 function Impact() {
-  const metrics = [
-    { value: "20",      label: "Cambodian engineers" },
-    { value: "6",       label: "Factory pilots live" },
-    { value: "100K",    label: "Worker reach (projected)" },
-    { value: "$205K",   label: "Capital deployed to date" },
-    { value: "1",       label: "Ministry partnership signed" },
-    { value: "4",       label: "SDGs aligned (8, 9, 12, 13)" },
-  ];
+  /* Full-width cinematic presentation — the 4 Vertex-generated frames
+     (Today → L1 → L2 → L3) auto-cycle in a big TV frame with a
+     lower-third caption. No headline, no stat cards: the visuals
+     carry the section. */
+  const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      setIdx((i) => (i + 1) % DREAM_FRAMES.length);
+    }, 3600);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  const f = DREAM_FRAMES[idx];
+
   return (
-    <Section id="impact" className="bg-yai-navy text-white relative overflow-hidden">
+    <Section id="impact" className="bg-yai-navy text-white relative overflow-hidden !pt-10 lg:!pt-12">
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-yai-blue/30 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-yai-orange/20 blur-3xl pointer-events-none" />
-      <div className="relative">
-        <SectionEyebrow light>Development impact</SectionEyebrow>
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-balance max-w-3xl">
-          Cambodian-built. ASEAN-bound. SDG-aligned.
-        </h2>
-        <p className="text-lg text-white/75 mt-4 max-w-2xl leading-relaxed">
-          Yai is a Cambodian-engineered platform serving Cambodian factories and Cambodian workers.
-          The frontier Ai is global; the build, the deployment and the impact are local.
-        </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-10">
-          {metrics.map((m, i) => (
-            <Reveal key={m.label} delay={i * 0.05}>
-              <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm p-6">
-                <div className="font-extrabold text-4xl text-yai-amber tracking-tight">{m.value}</div>
-                <div className="text-[11.5px] uppercase tracking-wider mt-2 text-white/70 font-semibold">
-                  {m.label}
-                </div>
+      <div className="relative max-w-5xl mx-auto">
+        {/* Big TV frame */}
+        <div
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden border border-white/15 shadow-2xl bg-black"
+        >
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 1.07 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.985 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={f.img}
+                alt={f.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                priority={idx === 0}
+                className="object-cover"
+              />
+              {/* Layer-1-only orange data-hub glow */}
+              {f.tag.startsWith("Layer 1") && (
+                <div
+                  className="absolute inset-0 pointer-events-none mix-blend-overlay"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 18% 22% at 50% 56%, rgba(243,112,33,0.95) 0%, rgba(243,112,33,0.55) 50%, rgba(243,112,33,0) 100%)",
+                  }}
+                />
+              )}
+              {/* Lower-third caption — tag pill + title + one-liner */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent pt-20 pb-6 px-6 lg:px-9">
+                <span
+                  className="inline-block text-[11px] font-extrabold uppercase tracking-[0.18em] px-3 py-1.5 rounded-md text-white"
+                  style={{ background: f.accent }}
+                >
+                  {f.tag}
+                </span>
+                <h3 className="font-serif text-xl lg:text-3xl font-semibold leading-tight mt-2.5">
+                  {f.title}
+                </h3>
+                <p className="text-[13px] lg:text-sm text-white/75 mt-1.5 max-w-2xl leading-relaxed">
+                  {f.caption}
+                </p>
               </div>
-            </Reveal>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Progress dots — click to jump to a frame */}
+        <div className="flex justify-center gap-2.5 mt-6">
+          {DREAM_FRAMES.map((frame, i) => (
+            <button
+              key={frame.tag}
+              onClick={() => setIdx(i)}
+              aria-label={frame.tag}
+              className="h-2 rounded-full transition-all duration-500"
+              style={{
+                width: i === idx ? 34 : 8,
+                background: i === idx ? f.accent : "rgba(255,255,255,0.3)",
+              }}
+            />
           ))}
         </div>
       </div>
