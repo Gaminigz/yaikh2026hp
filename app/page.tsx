@@ -48,7 +48,7 @@ function Nav() {
         scrolled ? "bg-white/85 backdrop-blur-md border-b border-black/5" : "bg-transparent"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
+      <nav className="max-w-[1600px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
         {/* LEFT — logo + slogan + main nav links */}
         <div className="flex items-center gap-6 lg:gap-8 min-w-0">
           <a href="#top" aria-label="Yai · home" className="flex items-center gap-3.5 shrink-0">
@@ -310,7 +310,7 @@ function Hero() {
       className="relative mesh-hero text-white overflow-hidden grain min-h-screen flex items-center"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-yai-navy/40 pointer-events-none" />
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-24 grid lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
+      <div className="relative max-w-[1600px] mx-auto px-6 lg:px-10 pt-32 pb-24 grid lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -2936,7 +2936,7 @@ function CTA() {
 function Footer() {
   return (
     <footer className="bg-yai-navy text-white/60 text-sm">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-12 grid md:grid-cols-4 gap-8">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-12 grid md:grid-cols-4 gap-8">
         <div>
           <Image
             src="/images/yai-logo.jpg"
@@ -2968,7 +2968,7 @@ function Footer() {
         </FooterCol>
       </div>
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row gap-2 justify-between text-[11.5px] text-white/45">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row gap-2 justify-between text-[11.5px] text-white/45">
           <span>© {new Date().getFullYear()} Texlink Technologies Co., Ltd. · Made in Cambodia</span>
           <span>www.yaikh.com</span>
         </div>
@@ -3007,7 +3007,7 @@ function Section({
 }) {
   return (
     <section id={id} className={`py-20 lg:py-28 ${className}`}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">{children}</div>
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-10">{children}</div>
     </section>
   );
 }
