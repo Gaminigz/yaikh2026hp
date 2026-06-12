@@ -35,6 +35,7 @@ export default function Home() {
 function Nav() {
   const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
+  const [partnersOpen, setPartnersOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
     window.addEventListener("scroll", onScroll);
@@ -77,7 +78,46 @@ function Nav() {
           >
             <a href="#product"   className="hover:text-yai-orange transition">{t("nav.product")}</a>
             <a href="#customers" className="hover:text-yai-orange transition">{t("nav.customers")}</a>
-            <a href="#partners"  className="hover:text-yai-orange transition">{t("nav.partners")}</a>
+            {/* Partners — click opens a small submenu with Portal */}
+            <div className="relative" onMouseLeave={() => setPartnersOpen(false)}>
+              <button
+                type="button"
+                onClick={() => setPartnersOpen((v) => !v)}
+                className="hover:text-yai-orange transition inline-flex items-center gap-1"
+                aria-expanded={partnersOpen}
+                aria-haspopup="menu"
+              >
+                {t("nav.partners")}
+                <svg viewBox="0 0 12 12" className={`w-2.5 h-2.5 transition-transform ${partnersOpen ? "rotate-180" : ""}`} fill="currentColor">
+                  <path d="M2 4l4 4 4-4z" />
+                </svg>
+              </button>
+              {partnersOpen && (
+                <div
+                  role="menu"
+                  className="absolute left-0 top-full mt-2 min-w-[170px] rounded-xl bg-white shadow-2xl border border-black/5 py-2 text-yai-navy"
+                >
+                  <a
+                    href="#partners"
+                    role="menuitem"
+                    onClick={() => setPartnersOpen(false)}
+                    className="block px-4 py-2 text-[13px] font-semibold hover:bg-yai-bg hover:text-yai-orange transition"
+                  >
+                    {t("partners.eyebrow")}
+                  </a>
+                  <a
+                    href="https://yai-plan-production.up.railway.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                    onClick={() => setPartnersOpen(false)}
+                    className="block px-4 py-2 text-[13px] font-semibold hover:bg-yai-bg hover:text-yai-orange transition"
+                  >
+                    {t("nav.portal")} <span aria-hidden className="text-gray-400">↗</span>
+                  </a>
+                </div>
+              )}
+            </div>
             <a href="#pricing"   className="hover:text-yai-orange transition">{t("nav.pricing")}</a>
             <a href="#impact"    className="hover:text-yai-orange transition">{t("nav.flashcards")}</a>
             <a href="#impact"    className="hover:text-yai-orange transition">{t("nav.experience")}</a>
