@@ -3,6 +3,7 @@
 import { AnimatePresence, LayoutGroup, motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { LangProvider, useLang, type Lang } from "./i18n";
 
 /* yaikh.com home — modern, partner-review optimised single-page scroll.
  * Sections: Nav · Hero · Audience router · 3-layer story · Customers ·
@@ -14,22 +15,25 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   return (
-    <main className="overflow-x-hidden">
-      <Nav />
-      <Hero />
-      <LayerStory />
-      <CustomersStrip />
-      <PartnerStack />
-      <PricingTease />
-      <Impact />
-      <CTA />
-      <Footer />
-    </main>
+    <LangProvider>
+      <main className="overflow-x-hidden">
+        <Nav />
+        <Hero />
+        <LayerStory />
+        <CustomersStrip />
+        <PartnerStack />
+        <PricingTease />
+        <Impact />
+        <CTA />
+        <Footer />
+      </main>
+    </LangProvider>
   );
 }
 
 /* ─────────────── NAV ─────────────── */
 function Nav() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -59,10 +63,10 @@ function Nav() {
             />
             <span className={`hidden sm:block leading-tight transition-colors ${scrolled ? "text-yai-navy" : "text-white"}`}>
               <span className="block font-serif font-semibold text-[15px] tracking-tight">
-                One system.
+                {t("slogan1")}
               </span>
               <span className="block text-[12px] font-semibold tracking-tight max-w-[24ch] mt-0.5">
-                Simple enough to run a factory from your phone.
+                {t("slogan2")}
               </span>
             </span>
           </a>
@@ -71,11 +75,11 @@ function Nav() {
               scrolled ? "text-yai-navy/80" : "text-white/90"
             }`}
           >
-            <a href="#product"   className="hover:text-yai-orange transition">Product</a>
-            <a href="#customers" className="hover:text-yai-orange transition">Customers</a>
-            <a href="#partners"  className="hover:text-yai-orange transition">Partners</a>
-            <a href="#pricing"   className="hover:text-yai-orange transition">Pricing</a>
-            <a href="#impact"    className="hover:text-yai-orange transition">Flashcards</a>
+            <a href="#product"   className="hover:text-yai-orange transition">{t("nav.product")}</a>
+            <a href="#customers" className="hover:text-yai-orange transition">{t("nav.customers")}</a>
+            <a href="#partners"  className="hover:text-yai-orange transition">{t("nav.partners")}</a>
+            <a href="#pricing"   className="hover:text-yai-orange transition">{t("nav.pricing")}</a>
+            <a href="#impact"    className="hover:text-yai-orange transition">{t("nav.flashcards")}</a>
           </div>
         </div>
 
@@ -88,9 +92,9 @@ function Nav() {
             rel="noopener noreferrer"
             className="inline-block text-center px-5 py-2 rounded-full bg-yai-orange text-white hover:bg-yai-orange/90 transition shadow-lg leading-[1.1]"
           >
-            <span className="block text-[14px] font-bold">Login</span>
+            <span className="block text-[14px] font-bold">{t("nav.login")}</span>
             <span className="block text-[9px] uppercase tracking-[0.18em] font-semibold opacity-90 mt-0.5">
-              Customers
+              {t("nav.loginSub")}
             </span>
           </a>
         </div>
@@ -104,7 +108,8 @@ function Nav() {
  * 32px round, glossy domed look, lift on hover. Smaller than the Login pill
  * (~56px) so Login stays the primary CTA weight. */
 function LangFlags({ scrolled }: { scrolled: boolean }) {
-  const langs = [
+  const { lang, setLang } = useLang();
+  const langs: Array<{ code: Lang; label: string; svg: React.ReactNode }> = [
     { code: "km", label: "ខ្មែរ · Khmer",       svg: <FlagKH /> },
     { code: "en", label: "English",              svg: <FlagGB /> },
     { code: "zh", label: "中文 · Chinese",       svg: <FlagCN /> },
@@ -121,7 +126,11 @@ function LangFlags({ scrolled }: { scrolled: boolean }) {
           type="button"
           title={l.label}
           aria-label={`Switch to ${l.label}`}
-          className="group relative w-8 h-8 rounded-full overflow-hidden transition-all hover:-translate-y-0.5 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yai-amber"
+          aria-pressed={lang === l.code}
+          onClick={() => setLang(l.code)}
+          className={`group relative w-8 h-8 rounded-full overflow-hidden transition-all hover:-translate-y-0.5 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yai-amber ${
+            lang === l.code ? "ring-2 ring-yai-amber scale-110" : ""
+          }`}
           style={{
             // 3D domed button: drop shadow + amber ring outline
             boxShadow: scrolled
@@ -294,6 +303,7 @@ function Star({ cx, cy, r }: { cx: number; cy: number; r: number }) {
 
 /* ─────────────── HERO ─────────────── */
 function Hero() {
+  const { t } = useLang();
   return (
     <section
       id="top"
@@ -319,7 +329,7 @@ function Hero() {
                 className="w-12 h-6 rounded-[2px] ring-2 ring-white/40 shadow object-cover"
               />
               <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-white/85">
-                Made in Cambodia
+                {t("hero.madeIn")}
               </span>
             </span>
             {/* Divider */}
@@ -365,9 +375,9 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-balance"
           >
-            Ai-Native <span className="text-yai-amber italic">Manufacturing</span>
+            {t("hero.titleA")} <span className="text-yai-amber italic">{t("hero.titleB")}</span>
             <br />
-            Intelligence Platform.
+            {t("hero.titleC")}
           </motion.h1>
 
 
@@ -377,16 +387,8 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.5 }}
             className="mt-6 text-lg lg:text-xl text-white/85 max-w-2xl leading-relaxed text-pretty"
           >
-            <span className="font-semibold text-yai-amber">
-              World&rsquo;s first Ai-Native MIP
-            </span>{" "}
-            for Garments, Footwear, Bags and Softgoods manufacturing. Convert your
-            factory into a{" "}
-            <span className="font-semibold text-white">
-              full Ai-Native ecosystem in 1 year
-            </span>
-            . Powered in partnership with world-leading Ai services — answering all the
-            future demands from your customers.
+            <span className="font-semibold text-yai-amber">{t("hero.p1")}</span>
+            {t("hero.pRest")}
           </motion.p>
 
           {/* Texlink Technologies — the company behind Yai. */}
@@ -398,22 +400,17 @@ function Hero() {
           >
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-yai-amber">
-                Developed by
+                {t("hero.devBy")}
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">
-                Cambodia · since 2024
+                {t("hero.since")}
               </span>
             </div>
             <div className="font-serif text-xl font-semibold text-white leading-tight">
               Texlink Technologies Co., Ltd.
             </div>
             <p className="mt-3 text-[13.5px] text-white/75 leading-relaxed">
-              Registered in Cambodia · ICT certified · manned by{" "}
-              <span className="text-white font-semibold">20 Cambodian development engineers</span>.
-              Venture capital backed by{" "}
-              <span className="text-white font-semibold">Hong Kong</span> and{" "}
-              <span className="text-white font-semibold">Singapore</span> advisors.
-              Head office in Phnom Penh.
+              {t("hero.txDesc")}
             </p>
           </motion.div>
 
@@ -429,10 +426,10 @@ function Hero() {
         >
           <CompactDreamShowcase />
           <div className="grid grid-cols-2 gap-4">
-            <StatCard value="10" label="Master Ai agents · holding 100+ apps" />
-            <StatCard value="20" label="Certified Ai integration engineers" />
+            <StatCard value="10" label={t("stats.agents")} />
+            <StatCard value="20" label={t("stats.engineers")} />
             <LiveDurationStat startDate="2024-05-20" />
-            <StatCard value="40 yrs" label="Experience in factory administration and production" />
+            <StatCard value="40 yrs" label={t("stats.exp")} />
           </div>
         </motion.div>
       </div>
@@ -440,7 +437,7 @@ function Hero() {
       {/* Scroll hint */}
       <div className="absolute bottom-6 inset-x-0 flex justify-center">
         <div className="text-white/40 text-[10px] uppercase tracking-[0.25em] font-bold flex flex-col items-center gap-2">
-          <span>Scroll</span>
+          <span>{t("hero.scroll")}</span>
           <span className="block w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
         </div>
       </div>
@@ -461,6 +458,7 @@ function StatCard({ value, label }: { value: string; label: string }) {
  *  number stays accurate without flickering. Server-renders an empty value
  *  to avoid hydration mismatch, then fills in on the client. */
 function LiveDurationStat({ startDate }: { startDate: string }) {
+  const { t } = useLang();
   const [value, setValue] = useState("…");
   useEffect(() => {
     const start = new Date(startDate);
@@ -488,7 +486,7 @@ function LiveDurationStat({ startDate }: { startDate: string }) {
         {value}
       </div>
       <div className="text-[11px] uppercase tracking-wider mt-1 text-white/65">
-        In live development · and counting
+        {t("stats.live")}
       </div>
     </div>
   );
@@ -497,41 +495,32 @@ function LiveDurationStat({ startDate }: { startDate: string }) {
 /* ─────────────── DREAM SHOWCASE ───────────────
  * TV-style auto-cycling slideshow of the 4 stages — Today → L1 → L2 → L3.
  * Used as the COMPACT variant inside the hero's right column. */
+/* Text lives in i18n.tsx under dream.<k>.tag/title/cap — resolve via t(). */
 const DREAM_FRAMES = [
-  {
-    img:     "/images/dream-today.png",
-    tag:     "Today",
-    title:   "The chaos most factories live in",
-    caption: "Paper reports, ledger books, scattered chat apps, manual signatures, staff running floor-to-floor chasing approvals.",
-    accent:  "#94A3B8",
-  },
-  {
-    img:     "/images/dream-l1.png",
-    tag:     "Layer 1 · Digitalization",
-    title:   "One database, all factory data",
-    caption: "Excel and paper records flow into one source of truth. Scanners, AIoT sensors, mobile apps, tablets.",
-    accent:  "#F37021",
-  },
-  {
-    img:     "/images/dream-l2.png",
-    tag:     "Layer 2 · Agentic",
-    title:   "Ai agents own the workflows",
-    caption: "Voice, chat, dashboards, Digital Twin Visualisation. Real-time guidance, geo & logistics.",
-    accent:  "#1E4DAA",
-  },
-  {
-    img:     "/images/dream-l3.png",
-    tag:     "Layer 3 · Full Ai",
-    title:   "Executive command",
-    caption: "Multi-factory, multi-country, predictive growth. Sovereign Ai on solar-powered compute.",
-    accent:  "#0A3327",
-  },
+  { img: "/images/dream-today.png", k: "today", accent: "#94A3B8" },
+  { img: "/images/dream-l1.png",    k: "l1",    accent: "#F37021" },
+  { img: "/images/dream-l2.png",    k: "l2",    accent: "#1E4DAA" },
+  { img: "/images/dream-l3.png",    k: "l3",    accent: "#0A3327" },
 ];
+
+/* Accounting evolution — photoreal Vertex-generated frames showing how
+ * ONE role transforms across the 4 eras. Appended to the main cinema
+ * slideshow (not the hero compact showcase). */
+const ACC_FRAMES = [
+  { img: "/images/acc-today.png", k: "acc1", accent: "#94A3B8" },
+  { img: "/images/acc-l1.png",    k: "acc2", accent: "#F37021" },
+  { img: "/images/acc-l2.png",    k: "acc3", accent: "#1E4DAA" },
+  { img: "/images/acc-l3.png",    k: "acc4", accent: "#0A3327" },
+];
+
+/* The big Impact cinema runs the full 8-frame reel. */
+const CINEMA_FRAMES = [...DREAM_FRAMES, ...ACC_FRAMES];
 
 /** Compact showcase that fits inside the hero's right column above the
  *  stat cards. Same 4-frame auto-cycle, smaller chrome — no section title,
  *  shorter captions, just the moving picture. */
 function CompactDreamShowcase() {
+  const { t } = useLang();
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -563,10 +552,10 @@ function CompactDreamShowcase() {
             className="inline-block text-[12px] font-extrabold uppercase tracking-[0.18em] px-3 py-1.5 rounded-md text-white shrink-0"
             style={{ background: f.accent }}
           >
-            {f.tag}
+            {t(`dream.${f.k}.tag`)}
           </span>
           <h4 className="font-serif text-lg lg:text-xl font-semibold leading-tight text-white">
-            {f.title}
+            {t(`dream.${f.k}.title`)}
           </h4>
         </motion.div>
       </AnimatePresence>
@@ -588,7 +577,7 @@ function CompactDreamShowcase() {
           >
             <Image
               src={f.img}
-              alt={f.title}
+              alt={t(`dream.${f.k}.title`)}
               fill
               sizes="(max-width: 1024px) 100vw, 500px"
               priority={idx === 0}
@@ -597,7 +586,7 @@ function CompactDreamShowcase() {
             {/* Layer-1-only: radial orange glow centred on the data hub.
                 Fades to transparent at the edges so workers / machines /
                 desks stay in their original cool blue. */}
-            {f.tag.startsWith("Layer 1") && (
+            {f.k === "l1" && (
               <div
                 className="absolute inset-0 pointer-events-none mix-blend-overlay"
                 style={{
@@ -692,36 +681,37 @@ function AudienceRouter() {
 
 /* ─────────────── 3-LAYER STORY ─────────────── */
 function LayerStory() {
+  const { t } = useLang();
   const layers = [
     {
-      tag: "Today",
-      name: "The old way",
-      sub: "Paper · ledgers · scattered chat",
-      desc: "Garment factories for years stuck with Excels, chats, emails and lots of meetings. Yai replaces it with smartness — total smartness.",
+      tag: t("layer.today.tag"),
+      name: t("layer.today.name"),
+      sub: t("layer.today.sub"),
+      desc: t("layer.today.desc"),
       icons: ["Paper reports", "Ledger books", "WhatsApp", "Manual signing", "Chasing approvals"],
       variant: "before",
     },
     {
-      tag: "Layer 1",
-      name: "Digitalization",
-      sub: "Centralised data",
-      desc: "Smart UIs and chat agents replace the entire email + Excel culture. Mobile apps bring information to the right hands. AIoT monitors everything. LLMs for language support.",
+      tag: t("layer.l1.tag"),
+      name: t("layer.l1.name"),
+      sub: t("layer.l1.sub"),
+      desc: t("layer.l1.desc"),
       icons: ["Smart UIs", "Chat agents", "Mobile apps", "AIoT", "LLMs"],
       variant: "l1",
     },
     {
-      tag: "Layer 2",
-      name: "Agentic",
-      sub: "LLM-powered agents",
-      desc: "Digitalization data comes to life with Agentic skills. Repetitive tasks line up. Random tasks get human attention. Constant monitoring of every SOP and process — agents policing the process.",
+      tag: t("layer.l2.tag"),
+      name: t("layer.l2.name"),
+      sub: t("layer.l2.sub"),
+      desc: t("layer.l2.desc"),
       icons: ["Agentic skills", "Auto-queue tasks", "Human escalation", "SOP monitoring", "Process policing"],
       variant: "l2",
     },
     {
-      tag: "Layer 3",
-      name: "Full Ai",
-      sub: "Strategic management",
-      desc: "Agentic system trained to interact with human skills. A well-synced operation that delivers results — so the boss isn't afraid to put up capital and clone it into new territories.",
+      tag: t("layer.l3.tag"),
+      name: t("layer.l3.name"),
+      sub: t("layer.l3.sub"),
+      desc: t("layer.l3.desc"),
       icons: ["Human + Ai sync", "Proven results", "Confident capital", "Clone-to-country", "Multi-territory"],
       variant: "l3",
     },
@@ -738,28 +728,26 @@ function LayerStory() {
 
   return (
     <Section id="product" className="!pt-4 lg:!pt-6">
-      <SectionEyebrow>The platform</SectionEyebrow>
+      <SectionEyebrow>{t("platform.eyebrow")}</SectionEyebrow>
       {/* Title + subtitle in a 2-col row so the supporting copy sits to the
           right at the title's bottom level, leaving the layer cards to come
           up closer underneath. */}
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance">
-          From paper to Full Ai — one layer at a time.
+          {t("platform.title")}
         </h2>
         <p className="text-base text-gray-600 leading-relaxed">
-          Adopt one layer at a time — each builds on the one below, nothing
-          gets ripped out. The same engineering base carries you from
-          $120-a-year admin tooling to multi-factory sovereign Ai.
+          {t("platform.para")}
         </p>
       </div>
 
       {/* Evolution rail */}
       <div className="hidden md:flex items-center justify-center gap-3 mt-6 mb-4 text-yai-navy/50">
-        <span className="text-[10px] font-bold tracking-[0.25em] uppercase">Old way</span>
+        <span className="text-[10px] font-bold tracking-[0.25em] uppercase">{t("platform.old")}</span>
         <div className="flex-1 h-px bg-gradient-to-r from-gray-300 via-yai-blue/40 to-yai-blue" />
-        <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-yai-blue">Evolution →</span>
+        <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-yai-blue">{t("platform.evo")}</span>
         <div className="flex-1 h-px bg-gradient-to-r from-yai-blue via-yai-forest/60 to-yai-forest" />
-        <span className="text-[10px] font-bold tracking-[0.25em] uppercase">Full Ai</span>
+        <span className="text-[10px] font-bold tracking-[0.25em] uppercase">{t("platform.full")}</span>
       </div>
 
       <div className="grid md:grid-cols-4 gap-4 mt-6">
@@ -1538,6 +1526,7 @@ function PaperDoc({ fill, stroke }: { fill: string; stroke: string }) {
 function CustomersStrip() {
   /* Ascending staircase showing the 6 adoption steps — no prices, just
      the journey from 5-person admin to multi-factory Ai brain. */
+  const { t } = useLang();
   const STEPS: Array<{
     step: string;
     name: string;
@@ -1552,7 +1541,7 @@ function CustomersStrip() {
       step: "Step 1",
       name: "Cloud · Starter",
       clients: 3,
-      capacity: "Core team",
+      capacity: t("cap.core"),
       h: 170,
       grad: "from-sky-100 to-white",
       accent: "text-yai-blue",
@@ -1562,7 +1551,7 @@ function CustomersStrip() {
       step: "Step 2",
       name: "Cloud · Growth",
       clients: 2,
-      capacity: "Dept",
+      capacity: t("cap.dept"),
       h: 200,
       grad: "from-sky-200 to-sky-50",
       accent: "text-yai-blue",
@@ -1572,7 +1561,7 @@ function CustomersStrip() {
       step: "Step 3",
       name: "Cloud · Enterprise",
       clients: 2,
-      capacity: "Factory",
+      capacity: t("cap.factory"),
       h: 230,
       grad: "from-blue-200 to-blue-50",
       accent: "text-yai-blue",
@@ -1582,7 +1571,7 @@ function CustomersStrip() {
       step: "Step 4",
       name: "Ai Server",
       clients: 2,
-      capacity: "Hardware",
+      capacity: t("cap.hardware"),
       h: 260,
       grad: "from-indigo-200 to-indigo-50",
       accent: "text-indigo-700",
@@ -1592,7 +1581,7 @@ function CustomersStrip() {
       step: "Step 4",
       name: "Administrative",
       clients: 2,
-      capacity: "Tools",
+      capacity: t("cap.tools"),
       h: 260,
       grad: "from-indigo-300 to-indigo-100",
       accent: "text-indigo-700",
@@ -1602,7 +1591,7 @@ function CustomersStrip() {
       step: "Step 4",
       name: "Operation",
       clients: 1,
-      capacity: "Tools",
+      capacity: t("cap.tools"),
       h: 260,
       grad: "from-indigo-400 to-indigo-200",
       accent: "text-indigo-800",
@@ -1612,7 +1601,7 @@ function CustomersStrip() {
       step: "Step 5",
       name: "Agentic",
       clients: 1,
-      capacity: "~6 months",
+      capacity: t("cap.6mo"),
       h: 300,
       grad: "from-violet-300 to-violet-100",
       accent: "text-violet-700",
@@ -1622,7 +1611,7 @@ function CustomersStrip() {
       step: "Step 6",
       name: "Big Ai Brain",
       clients: 1,
-      capacity: "Boss · ~1 yr",
+      capacity: t("cap.boss"),
       h: 340,
       grad: "from-orange-300 to-orange-100",
       accent: "text-yai-orange",
@@ -1632,19 +1621,18 @@ function CustomersStrip() {
 
   return (
     <Section id="customers" className="bg-yai-bg !pt-4 lg:!pt-6">
-      <SectionEyebrow>The journey</SectionEyebrow>
+      <SectionEyebrow>{t("journey.eyebrow")}</SectionEyebrow>
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
         <div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance">
-            One step at a time — all the way to Ai.
+            {t("journey.title")}
           </h2>
           <div className="mt-3 text-[11px] uppercase tracking-[0.22em] font-extrabold text-yai-orange">
-            Commercialisation journey · started July 2026
+            {t("journey.stamp")}
           </div>
         </div>
         <p className="text-base text-gray-600 leading-relaxed">
-          Six steps from a 5-person admin tier to a multi-factory Ai brain. Each step
-          builds on the one below; nothing gets ripped out along the way.
+          {t("journey.para")}
         </p>
       </div>
 
@@ -1661,8 +1649,7 @@ function CustomersStrip() {
         </div>
       </div>
       <p className="text-xs text-gray-500 italic mt-4 max-w-3xl">
-        Each step builds on the one below. The same engineering base carries a factory from the simplest
-        admin module to a sovereign Ai-on-solar setup spanning multiple plants.
+        {t("journey.note")}
       </p>
     </Section>
   );
@@ -2130,13 +2117,14 @@ function ApexBrainIcon() {
 
 /* ─────────────── PARTNER STACK ─────────────── */
 function PartnerStack() {
+  const { t } = useLang();
   const partners = [
     {
       name: "Anthropic · Claude Partner Network",
       tag: "Powered by Claude",
       logo: "/images/logo-claude.svg",
       logoAlt: "Anthropic",
-      desc: "Technical advisory partnership with the world's leading enterprise Ai venture — certifying our system developers.",
+      desc: t("partners.claude.desc"),
       bullet: ["Production use of Claude Sonnet 4.5", "Anthropic Academy certified team", "Responsible-AI policy live"],
       color: "#D97757",
       cta: "Read the technical brief",
@@ -2146,7 +2134,7 @@ function PartnerStack() {
       tag: "Built on GCP",
       logo: "/images/logo-googlecloud.svg",
       logoAlt: "Google Cloud",
-      desc: "World's most prominent Generative Ai services — integrated for efficient content creation.",
+      desc: t("partners.google.desc"),
       bullet: ["Vertex AI · Gemini · Cloud Run", "Multi-region ASEAN deployment", "$300 credit pilots → enterprise tier"],
       color: "#4285F4",
       cta: "See the GCP architecture",
@@ -2156,7 +2144,7 @@ function PartnerStack() {
       tag: "Impact-aligned",
       logo: "/images/logo-jica.svg",
       logoAlt: "JICA",
-      desc: "Ongoing activity partnering Asia Pacific's leading technology institute.",
+      desc: t("partners.jica.desc"),
       bullet: ["Ministry of Environment ✓", "Cambodia-born team", "Solar-powered Layer 3 compute"],
       color: "#0A3327",
       cta: "Read the impact dossier",
@@ -2165,15 +2153,13 @@ function PartnerStack() {
 
   return (
     <Section id="partners" className="!pt-4 lg:!pt-6">
-      <SectionEyebrow>Partner stack</SectionEyebrow>
+      <SectionEyebrow>{t("partners.eyebrow")}</SectionEyebrow>
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance">
-          Standing on the shoulders of giants.
+          {t("partners.title")}
         </h2>
         <p className="text-base text-gray-600 leading-relaxed">
-          Yai is not built alone. The frontier-Ai work comes from Claude and Gemini; the
-          cloud infrastructure from Google Cloud; the developmental backing aligns with
-          JICA&rsquo;s Cambodia digitalisation agenda.
+          {t("partners.para")}
         </p>
       </div>
       <div className="grid md:grid-cols-3 gap-5 mt-10">
@@ -2210,16 +2196,16 @@ function PartnerStack() {
 
 /* ─────────────── PRICING (full yai-plan PricingStaircase) ─────────────── */
 function PricingTease() {
+  const { t } = useLang();
   return (
     <Section id="pricing" className="bg-gradient-to-b from-white to-yai-bg !pt-2 lg:!pt-3">
-      <SectionEyebrow>Pricing</SectionEyebrow>
+      <SectionEyebrow>{t("pricing.eyebrow")}</SectionEyebrow>
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-x-10 gap-y-3 items-end">
         <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-yai-navy text-balance">
-          Every great march starts with one step.
+          {t("pricing.title")}
         </h2>
         <p className="text-base text-gray-600 leading-relaxed">
-          $120 a year buys five key members a digital admin core. From there, the ladder climbs
-          all the way to a sovereign-Ai data centre on your own factory roof.
+          {t("pricing.para")}
         </p>
       </div>
 
@@ -2606,18 +2592,19 @@ function Impact() {
      (Today → L1 → L2 → L3) auto-cycle in a big TV frame with a
      lower-third caption. No headline, no stat cards: the visuals
      carry the section. */
+  const { t } = useLang();
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     if (paused) return;
     const id = setInterval(() => {
-      setIdx((i) => (i + 1) % DREAM_FRAMES.length);
+      setIdx((i) => (i + 1) % CINEMA_FRAMES.length);
     }, 3600);
     return () => clearInterval(id);
   }, [paused]);
 
-  const f = DREAM_FRAMES[idx];
+  const f = CINEMA_FRAMES[idx];
 
   return (
     <Section id="impact" className="bg-yai-navy text-white relative overflow-hidden !pt-10 lg:!pt-12">
@@ -2641,14 +2628,14 @@ function Impact() {
             >
               <Image
                 src={f.img}
-                alt={f.title}
+                alt={t(`dream.${f.k}.title`)}
                 fill
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 priority={idx === 0}
                 className="object-cover"
               />
               {/* Layer-1-only orange data-hub glow */}
-              {f.tag.startsWith("Layer 1") && (
+              {f.k === "l1" && (
                 <div
                   className="absolute inset-0 pointer-events-none mix-blend-overlay"
                   style={{
@@ -2663,13 +2650,13 @@ function Impact() {
                   className="inline-block text-[11px] font-extrabold uppercase tracking-[0.18em] px-3 py-1.5 rounded-md text-white"
                   style={{ background: f.accent }}
                 >
-                  {f.tag}
+                  {t(`dream.${f.k}.tag`)}
                 </span>
                 <h3 className="font-serif text-xl lg:text-3xl font-semibold leading-tight mt-2.5">
-                  {f.title}
+                  {t(`dream.${f.k}.title`)}
                 </h3>
                 <p className="text-[13px] lg:text-sm text-white/75 mt-1.5 max-w-2xl leading-relaxed">
-                  {f.caption}
+                  {t(`dream.${f.k}.cap`)}
                 </p>
               </div>
             </motion.div>
@@ -2678,11 +2665,11 @@ function Impact() {
 
         {/* Progress dots — click to jump to a frame */}
         <div className="flex justify-center gap-2.5 mt-6">
-          {DREAM_FRAMES.map((frame, i) => (
+          {CINEMA_FRAMES.map((frame, i) => (
             <button
-              key={frame.tag}
+              key={frame.k}
               onClick={() => setIdx(i)}
-              aria-label={frame.tag}
+              aria-label={t(`dream.${frame.k}.tag`)}
               className="h-2 rounded-full transition-all duration-500"
               style={{
                 width: i === idx ? 34 : 8,
@@ -2691,9 +2678,6 @@ function Impact() {
             />
           ))}
         </div>
-
-        {/* Per-agent transformation stories — one card = 4 eras side by side */}
-        <AccountingTransformCard />
       </div>
     </Section>
   );
@@ -2703,6 +2687,7 @@ function Impact() {
  *  4 animated mini-scenes side by side: paper era → digital forms →
  *  agents automating → full-Ai analysis. */
 function AccountingTransformCard() {
+  const { t } = useLang();
   const ERAS: Array<{
     tag: string;
     accent: string;
@@ -2710,27 +2695,27 @@ function AccountingTransformCard() {
     scene: React.ReactNode;
   }> = [
     {
-      tag: "Today",
+      tag: t("layer.today.tag"),
       accent: "#94A3B8",
-      caption: "All paper. Ledger books, calculators, binders stacked high.",
+      caption: t("acc.cap1"),
       scene: <AccPaperScene />,
     },
     {
-      tag: "Layer 1",
+      tag: t("layer.l1.tag"),
       accent: "#F37021",
-      caption: "Digitalised — no more paper, but still clicking and typing forms.",
+      caption: t("acc.cap2"),
       scene: <AccFormScene />,
     },
     {
-      tag: "Layer 2",
+      tag: t("layer.l2.tag"),
       accent: "#1E4DAA",
-      caption: "Agents take over — vouchers process themselves, the human just confirms.",
+      caption: t("acc.cap3"),
       scene: <AccAgentScene />,
     },
     {
-      tag: "Layer 3",
+      tag: t("layer.l3.tag"),
       accent: "#0A3327",
-      caption: "Full Ai — deeper analysis, forecasts, near-perfect accuracy.",
+      caption: t("acc.cap4"),
       scene: <AccAnalysisScene />,
     },
   ];
@@ -2739,10 +2724,10 @@ function AccountingTransformCard() {
     <div className="mt-14 rounded-3xl bg-white text-yai-navy p-6 lg:p-8 shadow-2xl">
       <div className="flex items-baseline gap-3 flex-wrap">
         <span className="text-[10px] uppercase tracking-[0.22em] font-extrabold text-yai-orange">
-          Agent transformation
+          {t("acc.eyebrow")}
         </span>
         <h3 className="font-serif text-xl lg:text-2xl font-semibold">
-          Accounting — one desk, four eras.
+          {t("acc.title")}
         </h3>
       </div>
 
@@ -2915,18 +2900,19 @@ function AccAnalysisScene() {
 
 /* ─────────────── CTA ─────────────── */
 function CTA() {
+  const { t } = useLang();
   return (
     <Section id="contact" className="bg-white">
       <div className="rounded-3xl bg-gradient-to-br from-yai-navy to-yai-blue text-white p-10 lg:p-16 relative overflow-hidden">
         <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-yai-orange/40 blur-3xl pointer-events-none" />
         <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
           <div>
-            <SectionEyebrow light>Talk to us</SectionEyebrow>
+            <SectionEyebrow light>{t("cta.eyebrow")}</SectionEyebrow>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-balance">
-              Bring your factory into Ai.
+              {t("cta.title")}
             </h2>
             <p className="mt-4 text-lg text-white/80 max-w-xl leading-relaxed">
-              15-minute walkthrough of the live platform on real factory data. Cambodia-time or your time zone.
+              {t("cta.para")}
             </p>
           </div>
           <div className="flex flex-col gap-3 lg:items-end">
@@ -2937,7 +2923,7 @@ function CTA() {
               gamini@yaikh.com <span aria-hidden>→</span>
             </a>
             <span className="text-[11px] uppercase tracking-[0.2em] text-white/55 font-bold">
-              Or scroll back up · request a demo
+              {t("cta.sub")}
             </span>
           </div>
         </div>
