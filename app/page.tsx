@@ -93,27 +93,18 @@ function Nav() {
                 </svg>
               </button>
               {partnersOpen && (
-                <div
-                  role="menu"
-                  className="absolute left-0 top-full mt-2 min-w-[170px] rounded-xl bg-white shadow-2xl border border-black/5 py-2 text-yai-navy"
-                >
-                  <a
-                    href="#partners"
-                    role="menuitem"
-                    onClick={() => setPartnersOpen(false)}
-                    className="block px-4 py-2 text-[13px] font-semibold hover:bg-yai-bg hover:text-yai-orange transition"
-                  >
-                    {t("partners.eyebrow")}
-                  </a>
+                <div role="menu" className="absolute left-0 top-full pt-3 min-w-[120px]">
+                  {/* Transparent submenu — inherits the nav's text colour,
+                      only the word Portal shows. */}
                   <a
                     href="https://yai-plan-production.up.railway.app"
                     target="_blank"
                     rel="noopener noreferrer"
                     role="menuitem"
                     onClick={() => setPartnersOpen(false)}
-                    className="block px-4 py-2 text-[13px] font-semibold hover:bg-yai-bg hover:text-yai-orange transition"
+                    className="block text-[13px] font-semibold hover:text-yai-orange transition whitespace-nowrap"
                   >
-                    {t("nav.portal")} <span aria-hidden className="text-gray-400">↗</span>
+                    {t("nav.portal")} <span aria-hidden className="opacity-50">↗</span>
                   </a>
                 </div>
               )}
